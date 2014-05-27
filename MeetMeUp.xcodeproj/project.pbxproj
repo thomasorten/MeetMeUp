@@ -21,6 +21,9 @@
 		45953C5219350D9500F8F811 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45953C3419350D9500F8F811 /* UIKit.framework */; };
 		45953C5A19350D9500F8F811 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45953C5819350D9500F8F811 /* InfoPlist.strings */; };
 		45953C5C19350D9500F8F811 /* MeetMeUpTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45953C5B19350D9500F8F811 /* MeetMeUpTests.m */; };
+		45953C6619350DFA00F8F811 /* CheckMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45953C6519350DFA00F8F811 /* CheckMate.framework */; };
+		45953C691935150900F8F811 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45953C681935150900F8F811 /* DetailViewController.m */; };
+		45953C6C19351D9800F8F811 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45953C6B19351D9800F8F811 /* WebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,11 @@
 		45953C5719350D9500F8F811 /* MeetMeUpTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MeetMeUpTests-Info.plist"; sourceTree = "<group>"; };
 		45953C5919350D9500F8F811 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45953C5B19350D9500F8F811 /* MeetMeUpTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetMeUpTests.m; sourceTree = "<group>"; };
+		45953C6519350DFA00F8F811 /* CheckMate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CheckMate.framework; sourceTree = "<group>"; };
+		45953C671935150900F8F811 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		45953C681935150900F8F811 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		45953C6A19351D9800F8F811 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		45953C6B19351D9800F8F811 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45953C6619350DFA00F8F811 /* CheckMate.framework in Frameworks */,
 				45953C3319350D9500F8F811 /* CoreGraphics.framework in Frameworks */,
 				45953C3519350D9500F8F811 /* UIKit.framework in Frameworks */,
 				45953C3119350D9500F8F811 /* Foundation.framework in Frameworks */,
@@ -101,6 +110,7 @@
 		45953C2F19350D9500F8F811 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45953C6519350DFA00F8F811 /* CheckMate.framework */,
 				45953C3019350D9500F8F811 /* Foundation.framework */,
 				45953C3219350D9500F8F811 /* CoreGraphics.framework */,
 				45953C3419350D9500F8F811 /* UIKit.framework */,
@@ -115,10 +125,14 @@
 				45953C3F19350D9500F8F811 /* AppDelegate.h */,
 				45953C4019350D9500F8F811 /* AppDelegate.m */,
 				45953C4219350D9500F8F811 /* Main.storyboard */,
+				45953C6A19351D9800F8F811 /* WebViewController.h */,
+				45953C6B19351D9800F8F811 /* WebViewController.m */,
 				45953C4519350D9500F8F811 /* ViewController.h */,
 				45953C4619350D9500F8F811 /* ViewController.m */,
 				45953C4819350D9500F8F811 /* Images.xcassets */,
 				45953C3719350D9500F8F811 /* Supporting Files */,
+				45953C671935150900F8F811 /* DetailViewController.h */,
+				45953C681935150900F8F811 /* DetailViewController.m */,
 			);
 			path = MeetMeUp;
 			sourceTree = "<group>";
@@ -250,8 +264,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				45953C4719350D9500F8F811 /* ViewController.m in Sources */,
+				45953C6C19351D9800F8F811 /* WebViewController.m in Sources */,
 				45953C4119350D9500F8F811 /* AppDelegate.m in Sources */,
 				45953C3D19350D9500F8F811 /* main.m in Sources */,
+				45953C691935150900F8F811 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +392,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MeetMeUp/MeetMeUp-Prefix.pch";
 				INFOPLIST_FILE = "MeetMeUp/MeetMeUp-Info.plist";
@@ -389,6 +409,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MeetMeUp/MeetMeUp-Prefix.pch";
 				INFOPLIST_FILE = "MeetMeUp/MeetMeUp-Info.plist";
