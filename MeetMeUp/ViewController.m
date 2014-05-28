@@ -21,49 +21,38 @@
 {
     [super viewDidLoad];
     
-    [self getDataFromUrl:@"https://api.meetup.com/2/open_events.json?zip=60604&text=mobile&time=,1w&key=f1a5c85e506367585e7f4b2e6931"];
+    [self getDataFromSearchString:@"mobile"];
 }
 
 - (IBAction)onSearchPressed:(id)sender
 {
     if (self.searchTextField.text.length > 0) {
-        NSString *url = [[@"https://api.meetup.com/2/open_events.json?zip=60604&text=" stringByAppendingString: self.searchTextField.text] stringByAppendingString:@"&time=,1w&key=f1a5c85e506367585e7f4b2e6931"];
-        [self getDataFromUrl: url];
+        [self getDataFromSearchString: self.searchTextField.text];
         [self.searchTextField resignFirstResponder];
     }
 }
 
-- (void)getThumbnailsFromUrl:(NSString *)urlString
+- (UIImage *)getImageFromUrl:(NSString *)urlString
 {
     NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&connectionError];
-            NSDictionary *resultDictionary = [result objectForKey:@"results"][0];
-            NSDictionary *groupPhoto = [resultDictionary objectForKey:@"group_photo"];
-            NSString *imageUrl = [groupPhoto objectForKey:@"thumb_link"];
-            NSLog(@"%@", imageUrl);
-//            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-//            if (image == nil) {
-//                image = [UIImage imageNamed:@"logo-2x"];
-//            }
-        
-    }];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+    if (image == nil) {
+        image = [UIImage imageNamed:@"logo-2x"];
+    }
+    return image;
 }
 
-- (void)getDataFromUrl:(NSString *)urlString
+- (void)getDataFromSearchString:(NSString *)searchTerm
 {
+    NSString *urlString = [NSString stringWithFormat:@"https://api.meetup.com/2/open_events.json?zip=60604&text=%@&time=,1w&key=f1a5c85e506367585e7f4b2e6931&fields=group_photo", [searchTerm stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *resultsDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&connectionError];
         self.meetupsArray = [resultsDictionary objectForKey:@"results"];
         for (NSMutableDictionary *meetupDictionary in self.meetupsArray) {
-            NSDictionary *group = [meetupDictionary objectForKey:@"group"];
-            NSString *groupId = [[group objectForKey:@"id"] stringValue];
-            NSString *groupUrl = [[@"https://api.meetup.com/2/groups?&sign=true&group_id=" stringByAppendingString: groupId] stringByAppendingString:@"&page=20&key=f1a5c85e506367585e7f4b2e6931"];
-            [self getThumbnailsFromUrl:groupUrl];
-            //[meetupDictionary setObject:[self getThumbnailsFromUrl:groupUrl] forKey:@"groupImage"];
+            NSString *groupThumb = [[[meetupDictionary objectForKey:@"group"] objectForKey:@"group_photo"] objectForKey:@"thumb_link"];
+            [meetupDictionary setObject:[self getImageFromUrl:groupThumb] forKey:@"group_photo"];
         }
         [self.meetupsTableView reloadData];
     }];
@@ -82,7 +71,7 @@
     
     cell.textLabel.text = [event objectForKey:@"name"];
     cell.detailTextLabel.text = [venue objectForKey:@"address_1"];
-    cell.imageView.image = [event objectForKey:@"groupImage"];
+    cell.imageView.image = [event objectForKey:@"group_photo"];
     
     return cell;
 }
